@@ -81,6 +81,31 @@ void DIO_WriteChannel(DIO_PortType PortID, DIO_ChannelType ChannelId, DIO_LevelT
 	
 }
 
+/******************************************************************************
+* \Syntax          : DIO_LevelType DIO_FlipChannel(DIO_PortType PortID, DIO_ChannelType ChannelId)        
+* \Description     : Describe this service                                    
+*                                                                             
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : PortID 
+* \Parameters (in) : ChannelId                                                     
+* \Return value:   : void                                
+*******************************************************************************/
+void DIO_FlipChannel(DIO_PortType PortID, DIO_ChannelType ChannelId)
+{
+	DIO_LevelType ChannelLevel;
+	ChannelLevel = DIO_ReadChannel(PortID,ChannelId);
+	
+	if(ChannelLevel == DIO_LOW)
+	{
+		DIO_WriteChannel(PortID, ChannelId, DIO_HIGH);
+	}
+	else
+	{
+		DIO_WriteChannel(PortID, ChannelId, DIO_LOW);
+	}
+}
+
 /**********************************************************************************************************************
  *  END OF FILE: DIO.c
  *********************************************************************************************************************/

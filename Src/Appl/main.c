@@ -25,7 +25,10 @@ int main (void)
 	Port_Init(STR_PortsConfig);
 	
 //	DIO_ReadChannel(DIO_PORT_B, DIO_CHANNEL_1);	
-//	DIO_WriteChannel(DIO_PORT_F, DIO_CHANNEL_2, DIO_LOW);
+	DIO_WriteChannel(DIO_PORT_F, DIO_CHANNEL_3, DIO_LOW);
+	DIO_FlipChannel(DIO_PORT_F, DIO_CHANNEL_3);
+	DIO_WriteChannel(DIO_PORT_F, DIO_CHANNEL_3, DIO_HIGH);
+	DIO_FlipChannel(DIO_PORT_F, DIO_CHANNEL_3);
 	while(1)
 	{
 		

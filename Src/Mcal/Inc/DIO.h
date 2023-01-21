@@ -66,6 +66,7 @@ typedef enum
  *********************************************************************************************************************/
 DIO_LevelType DIO_ReadChannel(DIO_PortType PortID, DIO_ChannelType ChannelId);
 void DIO_WriteChannel(DIO_PortType PortID, DIO_ChannelType ChannelId, DIO_LevelType Level);
+void DIO_FlipChannel(DIO_PortType PortID, DIO_ChannelType ChannelId);
  
 #endif  /* DIO_H */
 

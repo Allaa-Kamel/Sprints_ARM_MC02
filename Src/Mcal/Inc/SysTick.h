@@ -29,7 +29,7 @@
 /**********************************************************************************************************************
  *  GLOBAL DATA TYPES AND STRUCTURES
  *********************************************************************************************************************/
-
+typedef void(*cb_type)(void);
 
 /**********************************************************************************************************************
  *  GLOBAL DATA PROTOTYPES
@@ -42,7 +42,10 @@
 void SysTick_ClearCurrentCount(void);
 void SysTick_Init(void);
 void SysTick_StartTimer(void);
-void SysTick_UpdateReloadValue(SysTick_ReloadValueType SysTick_ReloadValue);
+void SysTick_UpdateReloadValue(uint32 SysTick_Seconds);
+void Register_SysTick_cb(cb_type ptr);
+void SysTick_Handler(void);
+
 
 #endif  /* SYSTICK_H */
 

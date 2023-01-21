@@ -22,6 +22,7 @@
 *********************************************************************************************************************/
 #define STCTRL_ENABLE_OFFSET		0U
 #define STCTRL_INTEN_OFFSET			1U
+#define	SYSTICK_CPU_CLK					16000000U
 /**********************************************************************************************************************
  *  LOCAL DATA 
  *********************************************************************************************************************/
@@ -30,6 +31,8 @@
  *  GLOBAL DATA
  *********************************************************************************************************************/
 extern const SysTick_ConfigType STR_SysTickConfig;
+
+cb_type Callback_Ptr = NULL_PTR;
 /**********************************************************************************************************************
  *  LOCAL FUNCTION PROTOTYPES
  *********************************************************************************************************************/
@@ -94,13 +97,35 @@ void SysTick_StartTimer(void)
 *                                                                             
 * \Sync\Async      : Synchronous                                               
 * \Reentrancy      : Non Reentrant                                             
-* \Parameters (in) : SysTick_ReloadValue                   
+* \Parameters (in) : SysTick_Seconds                   
 * \Parameters (out): void                               
 *******************************************************************************/
-void SysTick_UpdateReloadValue(SysTick_ReloadValueType SysTick_ReloadValue)
+void SysTick_UpdateReloadValue(uint32 SysTick_Seconds)
 {
+	SysTick_ReloadValueType SysTick_ReloadValue;
+	
+	SysTick_ReloadValue = SysTick_Seconds * SYSTICK_CPU_CLK;
+	
 	SysTick_ClearCurrentCount();
 	STRELOAD = SysTick_ReloadValue;
+}
+
+
+void Register_SysTick_cb(cb_type ptr)
+{
+	if (ptr != NULL_PTR)
+	{
+		Callback_Ptr = ptr;
+	}
+}
+
+
+void SysTick_Handler(void)
+{
+	if (Callback_Ptr != NULL_PTR)
+	{
+		Callback_Ptr();
+	}
 }
 
 /**********************************************************************************************************************

@@ -77,8 +77,7 @@ void DIO_WriteChannel(DIO_PortType PortID, DIO_ChannelType ChannelId, DIO_LevelT
 	else
 	{
 		CLEAR_BIT(GPIODATA(PortID),ChannelId);
-	}
-	
+	}	
 }
 
 /******************************************************************************
@@ -93,17 +92,7 @@ void DIO_WriteChannel(DIO_PortType PortID, DIO_ChannelType ChannelId, DIO_LevelT
 *******************************************************************************/
 void DIO_FlipChannel(DIO_PortType PortID, DIO_ChannelType ChannelId)
 {
-	DIO_LevelType ChannelLevel;
-	ChannelLevel = DIO_ReadChannel(PortID,ChannelId);
-	
-	if(ChannelLevel == DIO_LOW)
-	{
-		DIO_WriteChannel(PortID, ChannelId, DIO_HIGH);
-	}
-	else
-	{
-		DIO_WriteChannel(PortID, ChannelId, DIO_LOW);
-	}
+	TOGGLE_BIT(GPIODATA(PortID),ChannelId);
 }
 
 /**********************************************************************************************************************

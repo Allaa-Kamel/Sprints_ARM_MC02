@@ -62,6 +62,13 @@ typedef union
 #define	EN0				      *((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x0100))
 
 /***********************************************/
+/************* SYSTICK RESGISTERS **************/
+/***********************************************/
+#define STCTRL					*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x010))
+#define STRELOAD				*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x014))
+#define STCURRENT				*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x018))
+
+/***********************************************/
 /************** GPIO RESGISTERS ****************/
 /***********************************************/
 #define GPIO_APB

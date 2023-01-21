@@ -91,6 +91,13 @@ typedef union
 
 #define GPIODATA(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x3FC))
 #define GPIODIR(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x400))
+#define GPIOIS(x)				*((volatile uint32*)(GPIO_PORT_BASE(x)+0x404))
+#define GPIOIBE(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x408))
+#define GPIOIEV(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x40C))
+#define GPIOIM(x)				*((volatile uint32*)(GPIO_PORT_BASE(x)+0x410))
+#define GPIORIS(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x414))
+#define GPIOMIS(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x418))
+#define GPIOICR(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x41C))
 #define GPIOAFSEL(x)		*((volatile uint32*)(GPIO_PORT_BASE(x)+0x420))
 #define GPIODR2R(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x500))
 #define GPIODR4R(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x504))
@@ -99,9 +106,9 @@ typedef union
 #define GPIOPUR(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x510))
 #define GPIOPDR(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x514))
 #define GPIODEN(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x51C))
-#define GPIOAMSEL(x)		*((volatile uint32*)(GPIO_PORT_BASE(x)+0x528))
 #define GPIOLOCK(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x520))
 #define GPIOCR(x)				*((volatile uint32*)(GPIO_PORT_BASE(x)+0x524))
+#define GPIOAMSEL(x)		*((volatile uint32*)(GPIO_PORT_BASE(x)+0x528))
 #define GPIOPCTL(x)			*((volatile uint32*)(GPIO_PORT_BASE(x)+0x52C))
 
 /***********************************************/

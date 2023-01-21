@@ -95,6 +95,21 @@ typedef enum
 	PORT_PIN_CUR_8MA	
 }Port_PinOutputCurrentType;
 
+typedef enum
+{
+	PORT_PIN_EXT_INT_DISABLE,
+	PORT_PIN_EXT_INT_ENABLE
+}Port_PinExtIntEnableType;
+
+typedef enum
+{
+	PORT_PIN_EVENT_NONE,
+	PORT_PIN_EVENT_RISING_EDGE,
+	PORT_PIN_EVENT_FALLING_EDGE,
+	PORT_PIN_EVENT_BOTH_EDGES,
+	PORT_PIN_EVENT_LEVEL
+}Port_PinExtIntEventType;
+
 typedef struct
 {
 	Port_NumType									PortNum;
@@ -104,6 +119,8 @@ typedef struct
 	Port_PinLevelType							PortPinLevel;
 	Port_PinInternalAttachType		PortPinInternalAttach;
 	Port_PinOutputCurrentType			PortPinOutputCurrent;
+	Port_PinExtIntEnableType			PortPinExtIntEnable;
+	Port_PinExtIntEventType				PortPinExtIntEvent;
 	
 }Port_ConfigType;
 

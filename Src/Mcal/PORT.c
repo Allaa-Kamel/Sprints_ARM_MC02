@@ -167,6 +167,7 @@ void Port_Init(const Port_ConfigType	* ConfigPtr)
 					break;
 			}
 			
+			/* Configure internal pull up, pull down or open drain */
 			switch(STR_PortsConfig[PinCounter].PortPinInternalAttach)
 			{
 				case PORT_PIN_PUR:
@@ -190,6 +191,43 @@ void Port_Init(const Port_ConfigType	* ConfigPtr)
 				default:
 					/* Invalid configuration */
 					break;
+			}
+			
+			/* Configure External interrupt settings on pin */
+			if(STR_PortsConfig[PinCounter].PortPinExtIntEnable == PORT_PIN_EXT_INT_ENABLE)
+			{
+				switch (STR_PortsConfig[PinCounter].PortPinExtIntEvent)
+				{
+					case PORT_PIN_EVENT_RISING_EDGE:
+						CLEAR_BIT(GPIOIS(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+						SET_BIT(GPIOIEV(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+						break;
+					
+					case PORT_PIN_EVENT_FALLING_EDGE:
+						CLEAR_BIT(GPIOIS(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);						
+						CLEAR_BIT(GPIOIEV(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+						break;
+					
+					case PORT_PIN_EVENT_BOTH_EDGES:
+						CLEAR_BIT(GPIOIS(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+						SET_BIT(GPIOIBE(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+						break;
+					
+					case PORT_PIN_EVENT_LEVEL:
+						SET_BIT(GPIOIS(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+						break;
+					
+					default:
+						/* Invalid event configuration */
+						break;
+				}
+				/* Enable Extrnal interrupt */
+				SET_BIT(GPIOIM(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
+			}
+			else
+			{
+				/* Disable Extrnal interrupt */
+				CLEAR_BIT(GPIOIM(STR_PortsConfig[PinCounter].PortNum),STR_PortsConfig[PinCounter].PortPin);
 			}
 		}
 	}

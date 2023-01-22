@@ -74,6 +74,9 @@ static void IntCtrl_SetPriority (IntCtrl_InterruptType InterruptNum, uint8 u8Pri
 			PRI0 |= (u8Priority << PRI_INTD_MASK);
 		break;
 		
+		case IntCtrl_GPIOPortF:
+			PRI7 |= (u8Priority << PRI_INTC_MASK);
+			break;
 		default:
 			/* Set interrupt priority in the corresponding register */
 		break;

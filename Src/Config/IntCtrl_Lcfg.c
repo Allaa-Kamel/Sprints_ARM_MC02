@@ -14,6 +14,7 @@
  *********************************************************************************************************************/
 #include "Std_Types.h"
 #include "IntCtrl_Cfg.h"
+#include "IntCtrl_Types.h"
 
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
@@ -28,14 +29,11 @@
  *********************************************************************************************************************/
 IntCtrl_UserInput UserInputType[155] = {0};
 
+
 void IntCtrl_GetUserConfig (void)
 {
-	UserInputType[0].u8IsEnabled = TRUE;
-	UserInputType[0].u8priority = 2;
-	UserInputType[1].u8IsEnabled = TRUE;
-	UserInputType[1].u8priority = 3;
-	UserInputType[3].u8IsEnabled = TRUE;
-	UserInputType[3].u8priority = 1;
+	UserInputType[IntCtrl_GPIOPortF].u8IsEnabled = TRUE;
+	UserInputType[IntCtrl_GPIOPortF].u8priority = 0;
 }
 
 /**********************************************************************************************************************

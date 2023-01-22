@@ -110,7 +110,15 @@ void SysTick_UpdateReloadValue(uint32 SysTick_Seconds)
 	STRELOAD = SysTick_ReloadValue;
 }
 
-
+/******************************************************************************
+* \Syntax          : void Register_SysTick_cb(cb_type ptr)      
+* \Description     : Describe this service                                    
+*                                                                             
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : ptr                   
+* \Parameters (out): void                               
+*******************************************************************************/
 void Register_SysTick_cb(cb_type ptr)
 {
 	if (ptr != NULL_PTR)
@@ -119,7 +127,15 @@ void Register_SysTick_cb(cb_type ptr)
 	}
 }
 
-
+/******************************************************************************
+* \Syntax          : void SysTick_Handler(void)      
+* \Description     : Describe this service                                    
+*                                                                             
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : void                   
+* \Parameters (out): void                               
+*******************************************************************************/
 void SysTick_Handler(void)
 {
 	if (Callback_Ptr != NULL_PTR)

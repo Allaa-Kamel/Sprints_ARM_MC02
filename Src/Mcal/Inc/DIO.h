@@ -19,7 +19,7 @@
 /**********************************************************************************************************************
  *  GLOBAL CONSTANT MACROS
  *********************************************************************************************************************/
-
+typedef void(*cb_type)(void);
 
 /**********************************************************************************************************************
  *  GLOBAL FUNCTION MACROS
@@ -67,6 +67,8 @@ typedef enum
 DIO_LevelType DIO_ReadChannel(DIO_PortType PortID, DIO_ChannelType ChannelId);
 void DIO_WriteChannel(DIO_PortType PortID, DIO_ChannelType ChannelId, DIO_LevelType Level);
 void DIO_FlipChannel(DIO_PortType PortID, DIO_ChannelType ChannelId);
+void Register_GPIO_cb (cb_type ptr);
+void GPIOF_Handler (void);
  
 #endif  /* DIO_H */
 

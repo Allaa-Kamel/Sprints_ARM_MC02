@@ -19,7 +19,7 @@
 /**********************************************************************************************************************
 *  LOCAL MACROS CONSTANT\FUNCTION
 *********************************************************************************************************************/
-
+cb_type DIO_Callback_Ptr = NULL_PTR;
 /**********************************************************************************************************************
  *  LOCAL DATA 
  *********************************************************************************************************************/
@@ -94,6 +94,51 @@ void DIO_FlipChannel(DIO_PortType PortID, DIO_ChannelType ChannelId)
 {
 	TOGGLE_BIT(GPIODATA(PortID),ChannelId);
 }
+
+/******************************************************************************
+* \Syntax          : void Register_GPIO_cb (cb_type ptr)        
+* \Description     : Describe this service                                    
+*                                                                             
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : ptr                                                    
+* \Return value:   : void                                
+*******************************************************************************/
+void Register_GPIO_cb (cb_type ptr)
+{
+	if (ptr != NULL_PTR)
+	{
+		DIO_Callback_Ptr = ptr;
+	}
+}
+
+/******************************************************************************
+* \Syntax          : void GPIOF_Handler (void)       
+* \Description     : Describe this service                                    
+*                                                                             
+* \Sync\Async      : Synchronous                                               
+* \Reentrancy      : Non Reentrant                                             
+* \Parameters (in) : void                                                    
+* \Return value:   : void                                
+*******************************************************************************/
+void GPIOF_Handler(void)
+{
+	if (DIO_Callback_Ptr != NULL_PTR)
+	{
+		DIO_Callback_Ptr();
+	}
+	
+	/* Clear interrupt flags */
+	if(GET_BIT(GPIORIS(DIO_PORT_F), DIO_CHANNEL_0) == DIO_HIGH)
+	{
+		CLEAR_BIT(GPIOICR(DIO_PORT_F),DIO_CHANNEL_0);
+	}
+	if (GET_BIT(GPIORIS(DIO_PORT_F), DIO_CHANNEL_0) == DIO_HIGH)
+	{
+		CLEAR_BIT(GPIOICR(DIO_PORT_F),DIO_CHANNEL_4);
+	}
+}
+
 
 /**********************************************************************************************************************
  *  END OF FILE: DIO.c

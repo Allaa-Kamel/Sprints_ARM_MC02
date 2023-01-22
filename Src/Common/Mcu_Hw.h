@@ -59,6 +59,7 @@ typedef union
 /***********************************************/
 #define INTCTRL         *((volatile INTCTRL_Tag*)(CORTEXM4_PERI_BASE_ADDRESS+0xD04))
 #define PRI0						*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x0400))
+#define PRI7						*((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x41C))
 #define	EN0				      *((volatile uint32*)(CORTEXM4_PERI_BASE_ADDRESS+0x0100))
 
 /***********************************************/

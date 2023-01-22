@@ -1,4 +1,5 @@
 
+#include "Platform_Types.h"
 #include "IntCtrl.h"
 #include "PORT.h"
 #include "DIO.h"
@@ -9,37 +10,68 @@
 
 /*- GLOBAL STATIC VARIABLES
 -------------------------------------*/
+uint8 ON_Time = 5;
+uint8 OFF_Time = 5;
+uint8 counter = 0;
 
 /*- GLOBAL EXTERN VARIABLES
 -------------------------------------*/
 extern const Port_ConfigType STR_PortsConfig[PORT_PINS_NUM];
 
+/*- FUNCTIONS PROTOTYPES
+-------------------------------------*/
+void Handle_SysTick_isr (void);
+void Handle_GPIO_isr (void);
 
 /*- APIs IMPLEMENTATION
 -------------------------------------*/
-void Handle_SysTick_isr (void);
+/****** SYSTICK INT APP HANDLER ******/
 void Handle_SysTick_isr (void)
 {
-	DIO_FlipChannel(DIO_PORT_F, DIO_CHANNEL_3);
+	if (counter == 0)
+	{
+		SysTick_UpdateReloadValue(ON_Time);
+	}
+	else
+	{
+		SysTick_UpdateReloadValue(OFF_Time);
+		counter = 0;
+	}
+	DIO_FlipChannel(DIO_PORT_F, DIO_CHANNEL_1);
+	
 }
 
-
+/******* GPIO INT APP HANDLER ********/
+void Handle_GPIO_isr (void)
+{
+	if(DIO_ReadChannel(DIO_PORT_F, DIO_CHANNEL_0) == DIO_HIGH)
+	{
+		ON_Time++;
+	}
+	
+	if(DIO_ReadChannel(DIO_PORT_F, DIO_CHANNEL_4) == DIO_HIGH)
+	{
+		OFF_Time++;
+	}
+	
+}
 
 int main (void)
 {
-//	IntCrtl_Init();
+	IntCrtl_Init();
 		
-//	Port_Init(STR_PortsConfig);
-	
-//	DIO_ReadChannel(DIO_PORT_B, DIO_CHANNEL_1);	
-//	DIO_WriteChannel(DIO_PORT_F, DIO_CHANNEL_3, DIO_LOW);
-//	DIO_FlipChannel(DIO_PORT_F, DIO_CHANNEL_3);
-//	DIO_FlipChannel(DIO_PORT_F, DIO_CHANNEL_3);
-	Register_SysTick_cb(Handle_SysTick_isr);
+	Port_Init(STR_PortsConfig);
 	
 	SysTick_Init();
+	
+	Register_SysTick_cb(Handle_SysTick_isr);
+
+	Register_GPIO_cb(Handle_GPIO_isr);
+	
+	DIO_WriteChannel(DIO_PORT_F, DIO_CHANNEL_1, DIO_LOW);
+	
 	SysTick_StartTimer();
-	SysTick_UpdateReloadValue(5);
+	
 	
 	while(1)
 	{

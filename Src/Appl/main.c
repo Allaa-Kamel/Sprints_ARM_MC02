@@ -56,6 +56,7 @@ void Handle_GPIO_isr (void)
 	
 }
 
+/**************** Main Function ********************/
 int main (void)
 {
 	IntCrtl_Init();
@@ -67,9 +68,7 @@ int main (void)
 	Register_SysTick_cb(Handle_SysTick_isr);
 
 	Register_GPIO_cb(Handle_GPIO_isr);
-	
-	DIO_WriteChannel(DIO_PORT_F, DIO_CHANNEL_1, DIO_LOW);
-	
+		
 	SysTick_StartTimer();
 	
 	
